@@ -1,0 +1,92 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ Layout = "_Layout";}
+@using ExchangeRateProvider.Models.ViewModels
+@using System.Globalization
+@model IndexViewModel
+@{
+    string originalAmountFromCzk = "from CZK";
+    string originalAmountToCzk = "to CZK";
+
+    string exchangedAmountFromCzk = "";
+    string exchangedAmountToCzk = "";
+
+    if (Model.ExchangedAmount is not null)
+    {
+        if (Model.ToCzk)
+        {
+            originalAmountToCzk = Model.OriginalAmount.ToString();
+            exchangedAmountToCzk = Model.ExchangedAmount.ToString();
+        }
+        else
+        {
+            originalAmountFromCzk = Model.OriginalAmount.ToString();
+            exchangedAmountFromCzk = Model.ExchangedAmount.ToString();
+        }
+    }
+}
+
+<div class="updated">
+    Rates were updated on @Model.Market.Date
+</div>
+
+<main>
+    <div class="container-section">
+        <h2>EXCHANGE from CZK</h2>
+        <form asp-action="ExchangeFromCzk" asp-controller="Home" method="get">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label class="sr-only" for="inlineFormInput">CZK</label>
+                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountFromCzk">
+                </div>
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect">
+                        <option selected>To...</option>
+                        @foreach (var currency in Model.Market.Currencies)
+                        {
+                            <option value="@currency.Code">@currency.Code</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Exchange</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-output" id="fromCZK">
+            @exchangedAmountFromCzk
+        </div>
+    </div>
+
+    <div class="line"><hr /></div>
+
+    <div class="container-section">
+        <h2>EXCHANGE to CZK</h2>
+        <form asp-action="ExchangeToCzk" asp-controller="Home" method="get">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect">
+                        <option selected>From...</option>
+                        @foreach (var currency in Model.Market.Currencies)
+                        {
+                            <option value="@currency.Code">@currency.Code</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <label class="sr-only" for="inlineFormInput">CZK</label>
+                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountToCzk">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Exchange</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-output" id="toCZK">
+            @exchangedAmountToCzk
+        </div>
+    </div>
+</main>

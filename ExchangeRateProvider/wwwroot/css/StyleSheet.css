@@ -1,0 +1,46 @@
+﻿body, main, .container-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container-section {
+    flex-direction: column;
+}
+
+.form-output {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 50px;
+    border: 1px solid #0275d8;
+    font-size: larger;
+    background-color: #0275d8;
+    color: white;
+}
+
+.line {
+    margin-top: 42px;
+    margin-bottom: 42px;
+}
+
+h2 {
+    color: #0275d8;
+    margin-bottom: 10px;
+}
+
+.updated {
+    text-transform: uppercase;
+    font-size: small;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
