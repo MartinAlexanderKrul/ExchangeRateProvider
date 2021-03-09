@@ -36,11 +36,11 @@
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
                     <label class="sr-only" for="inlineFormInput">CZK</label>
-                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountFromCzk">
+                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountFromCzk" required>
                 </div>
                 <div class="col-auto my-1">
                     <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect">
+                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect" required>
                         <option selected>To...</option>
                         @foreach (var currency in Model.Market.Currencies)
                         {
@@ -67,7 +67,7 @@
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
                     <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect">
+                    <select name="code" class="custom-select mb-2" id="inlineFormCustomSelect" required>
                         <option selected>From...</option>
                         @foreach (var currency in Model.Market.Currencies)
                         {
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-auto my-1">
                     <label class="sr-only" for="inlineFormInput">CZK</label>
-                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountToCzk">
+                    <input name="amount" type="number" class="form-control mb-2" id="inlineFormInput" placeholder="@originalAmountToCzk" required>
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-2">Exchange</button>

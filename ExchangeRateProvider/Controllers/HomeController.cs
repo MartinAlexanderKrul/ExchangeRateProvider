@@ -47,6 +47,11 @@ namespace ExchangeRateProvider.Controllers
         [HttpGet("toCZK")]
         public async Task<IActionResult> ExchangeToCzk(float amount, string code)
         {
+            if (code.Length != 3)
+            {
+                return RedirectToAction("Index");
+            }
+
             var market = await marketService.GetLastAsync();
             var currency = marketService.GetMarketsCurrencyByCode(market, code);
             var exchanged = currencyService.ExchangeToCzk(currency, amount);
@@ -59,6 +64,11 @@ namespace ExchangeRateProvider.Controllers
         [HttpGet("fromCZK")]
         public async Task<IActionResult> ExchangeFromCzk(float amount, string code)
         {
+            if (code.Length != 3)
+            {
+                return RedirectToAction("Index");
+            }
+
             var market = await marketService.GetLastAsync();
             var currency = marketService.GetMarketsCurrencyByCode(market, code);
             var exchanged = currencyService.ExchangeFromCzk(currency, amount);
