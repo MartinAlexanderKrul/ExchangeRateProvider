@@ -27,7 +27,12 @@ namespace ExchangeRateProvider
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("Main")));
+
+            var azurePassword = Environment.GetEnvironmentVariable("AzurePassword", EnvironmentVariableTarget.Process);
+            string azureConnectionString = $"Data Source=tcp:exchangerateproviderdbserver.database.windows.net,1433;Initial Catalog=ExchangeRateProvider_db;User Id=Nicolsburg@exchangerateproviderdbserver;Password={azurePassword}";
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(azureConnectionString));
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("Azure")));
 
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IMarketService, MarketService>();
